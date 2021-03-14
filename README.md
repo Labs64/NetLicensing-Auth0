@@ -14,7 +14,7 @@ The validation result is immediately available in the `user_metadata` property a
 
 ### Preconditions
 
-- Valid and active NetLicensing vendor profile
+- Valid and active NetLicensing vendor profile; register [here](https://ui.netlicensing.io/#/register)
 - Working Auth0 configuration (incl. test application)
 
 ### Configure NetLicensing product
@@ -39,7 +39,7 @@ Note: recommended API Key role `ROLE_APIKEY_LICENSEE`
 
 ### Required configuration
 
-- `NETLICENSING_API_KEY` - NetLicensing API Key
+- `NETLICENSING_API_KEY` - NetLicensing API Key (step 4)
 - `NETLICENSING_PRODUCT_NUMBER` - product number (step 1)
 - `NETLICENSING_PRODUCT_MODULE_NUMBER` - product module number (step 2)
 
@@ -50,6 +50,64 @@ Note: recommended API Key role `ROLE_APIKEY_LICENSEE`
 Created and deployed rule will be executed after user login.
 
 <img width="928" alt="Screenshot 2021-03-14 at 21 49 29" src="https://user-images.githubusercontent.com/1361258/111084155-45633580-8511-11eb-8612-44829df92513.png">
+
+### Sample user info
+
+Enriched user profile can be retrieved using Auth0 API; see [/userinfo](https://auth0.com/docs/api/authentication#user-profile) endpoint.
+
+```json
+{
+    "email": "user@local.local",
+    "https://netlicensing.io/auth0": {
+        "id": null,
+        "infos": {
+            "info": []
+        },
+        "items": {
+            "hasnext": null,
+            "item": [
+                {
+                    "list": [],
+                    "property": [
+                        {
+                            "name": "productModuleNumber",
+                            "value": "MAUTH0"
+                        },
+                        {
+                            "name": "valid",
+                            "value": "true"
+                        },
+                        {
+                            "name": "expires",
+                            "value": "2021-03-21T20:52:45.867Z"
+                        },
+                        {
+                            "name": "productModuleName",
+                            "value": "Subscription module"
+                        },
+                        {
+                            "name": "licensingModel",
+                            "value": "Subscription"
+                        }
+                    ],
+                    "type": "ProductModuleValidation"
+                }
+            ],
+            "itemsnumber": null,
+            "pagenumber": null,
+            "totalitems": null,
+            "totalpages": null
+        },
+        "signature": null,
+        "ttl": "2021-03-14T21:02:45.867Z"
+    },
+    "name": "User",
+    "nickname": "username",
+    "picture": "https://avatars.githubusercontent.com/u/1361258?v=4",
+    "sub": "github|1361258",
+    "updated_at": "2021-03-14T20:52:45.984Z"
+}
+```
 
 ## Bugs and Feedback
 
