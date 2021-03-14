@@ -27,6 +27,8 @@ The validation result is immediately available in the `user_metadata` property a
 
 ### Create Auth0 rule
 
+Use [rule-netlicensing-validate.js](https://github.com/Labs64/NetLicensing-Auth0/blob/master/rule-netlicensing-validate.js) as rule content.
+
 <img width="1450" alt="Screenshot 2021-03-14 at 21 45 53" src="https://user-images.githubusercontent.com/1361258/111084150-43997200-8511-11eb-8a1b-fcaeb685a6fb.png">
 
 ### Create NetLicensing API Key
@@ -37,9 +39,9 @@ Note: recommended API Key role `ROLE_APIKEY_LICENSEE`
 
 ### Required configuration
 
-- NETLICENSING_API_KEY - NetLicensing API Key
-- NETLICENSING_PRODUCT_NUMBER - product number (step 1)
-- NETLICENSING_PRODUCT_MODULE_NUMBER - product module number (step 2)
+- `NETLICENSING_API_KEY` - NetLicensing API Key
+- `NETLICENSING_PRODUCT_NUMBER` - product number (step 1)
+- `NETLICENSING_PRODUCT_MODULE_NUMBER` - product module number (step 2)
 
 <img width="1109" alt="Screenshot 2021-03-14 at 21 46 07" src="https://user-images.githubusercontent.com/1361258/111084152-44ca9f00-8511-11eb-8c28-8050a3ab0040.png">
 
@@ -55,4 +57,4 @@ For bugs, questions and discussions please use the [GitHub Issues](https://githu
 
 ## Links
 
-- What is Authentication-Authorization-Validation Framework? - https://netlicensing.io/blog/2020/09/24/authenticate-authorize-validate-framework/
+- *What is Authentication-Authorization-Validation Framework* - https://netlicensing.io/blog/2020/09/24/authenticate-authorize-validate-framework/
