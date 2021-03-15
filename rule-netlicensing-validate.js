@@ -1,7 +1,8 @@
-const qs = require('qs');
-const request = require('request');
-
 function validateNetLicensing(user, context, callback) {
+
+  const qs = require('qs');
+  const request = require('request');
+
   const {
     NETLICENSING_API_KEY: apiKey,
     NETLICENSING_BASE_URL: baseUrl = 'https://go.netlicensing.io/core/v2/rest',
@@ -9,6 +10,7 @@ function validateNetLicensing(user, context, callback) {
     NETLICENSING_PRODUCT_MODULE_NUMBER: productModuleNumber,
   } = configuration;
 
+  // verify mandatory configuration
   if (!apiKey) {
     console.error('Missing required configuration: NetLicensing API_KEY; skipping.');
     return callback(null, user, context);
@@ -19,13 +21,13 @@ function validateNetLicensing(user, context, callback) {
   const licenseeNumber = email;
   const licenseeName = name;
 
-  // skip if no user email available (used as NetLicensing customer number)
+  // skip if no customer number (user email) set
   if (!licenseeNumber) {
     return callback(null, user, context);
   }
 
+  // verify not existing or expired validation response
   let isExpired = false;
-
   if (user_metadata.netlicensing) {
     const { ttl } = user_metadata.netlicensing;
     const ttlDate = new Date(ttl);
@@ -42,7 +44,7 @@ function validateNetLicensing(user, context, callback) {
     console.log('No user metadata found');
   }
 
-  // Skip NetLicensing validation if exists and not expired yet
+  // request NetLicensing validation
   if (isExpired) {
     console.log(`Send NetLicensing validation request for ${licenseeNumber}`);
 
@@ -63,7 +65,7 @@ function validateNetLicensing(user, context, callback) {
           return callback(null, user, context);
         }
 
-        // if we reach here, it means NetLicensing returned info and we'll add it to the metadata
+        // if we reach here, it means NetLicensing returned validation response and we'll add it to the metadata
         let parsedBody = '';
 
         try {
@@ -73,6 +75,7 @@ function validateNetLicensing(user, context, callback) {
           return callback(null, user, context);
         }
 
+        // update user metadata with NetLicensing response
         try {
           auth0.users.updateUserMetadata(user_id, { ...user_metadata, netlicensing: parsedBody });
         } catch (auth0Error) {
@@ -80,7 +83,7 @@ function validateNetLicensing(user, context, callback) {
           return callback(null, user, context);
         }
 
-        // Add user metadata to the /userinfo context
+        // add user metadata to the /userinfo context
         const data = JSON.parse(JSON.stringify(parsedBody));
         delete data.details;
 
@@ -90,7 +93,7 @@ function validateNetLicensing(user, context, callback) {
       }
     );
   } else {
-    // Add user metadata to the /userinfo context
+    // add user metadata to the /userinfo context
     const data = JSON.parse(JSON.stringify(user_metadata.netlicensing));
     delete data.details;
 
