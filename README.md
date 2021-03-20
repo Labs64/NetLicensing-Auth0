@@ -54,6 +54,7 @@ Created and deployed rule will be executed after user login.
 ### Sample user info
 
 Enriched user profile can be retrieved using Auth0 API; see [/userinfo](https://auth0.com/docs/api/authentication#user-profile) endpoint.
+Userinfo response format specified by [OpenID Connect specification](https://openid.net/specs/openid-connect-core-1_0.html#UserInfoResponse).
 
 ```json
 {
