@@ -1,4 +1,4 @@
-<img src="https://netlicensing.io/img/netlicensing-stage-twitter.jpg">
+<img src="https://user-images.githubusercontent.com/1361258/111084155-45633580-8511-11eb-8612-44829df92513.png">
 
 # Labs64 NetLicensing / Auth0 Integration
 
